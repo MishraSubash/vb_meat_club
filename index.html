@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Meat Order</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Load Supabase via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="top-bar">
+        <button id="view-summary-btn">View Order Summary</button>
+    </div>
+
+    <div class="container">
+        <!-- Section 1: Terms & Conditions (From Excel) -->
+        <div id="tnc-section" class="section">
+            <h2>🐐 Upcoming Meat Order: Rules & Details</h2>
+            <p>Hey everyone! We're putting together our next group meat order. Please read through the details below carefully before placing your request.</p>
+            
+            <h3>1. Goat Meat — Pricing & Details</h3>
+            <ul>
+                <li><strong>Pricing:</strong> $6.50 per pound, based on live weight.</li>
+                <li><strong>Net Yield:</strong> Average live goat is 80-100 lbs. Expect net meat to be 50-60% of that.</li>
+                <li><strong>Preparation Fee:</strong> $15 per goat.</li>
+                <li><strong>Preparation Style:</strong> Traditional Nepali style (skin-on, rubbed with turmeric, includes head, liver, etc).</li>
+                <li><strong>Minimum Order:</strong> ½ goat. (Coordinate with others if you want less).</li>
+            </ul>
+
+            <h3>2. Additional Items</h3>
+            <ul>
+                <li><strong>Badel (Wild Boar):</strong> $10.50/lb (Must order in 5lb multiples)</li>
+                <li><strong>Local Chicken / Rooster:</strong> $30 each (Approx. 5 lbs)</li>
+                <li><strong>Kaliz (Pheasant):</strong> $35 each</li>
+                <li><strong>Buff (Buffalo) with Bone:</strong> $8.99/lb</li>
+                <li><strong>Buff Boneless:</strong> $11.99/lb</li>
+            </ul>
+
+            <button id="agree-btn" class="primary-btn">I Agree to the Rules</button>
+        </div>
+
+        <!-- Section 2: Identification -->
+        <div id="auth-section" class="section hidden">
+            <h2>Enter Your Details</h2>
+            <p>Enter your phone number to start a new order or edit an existing one.</p>
+            <input type="tel" id="phone" placeholder="Phone Number (e.g. 5551234567)" required>
+            <input type="text" id="name" placeholder="Full Name" required>
+            <button id="login-btn" class="primary-btn">Continue</button>
+            <p id="auth-error" class="error hidden">Please enter both name and phone number.</p>
+        </div>
+
+        <!-- Section 3: Order Form -->
+        <div id="order-section" class="section hidden">
+            <h2>Your Order Details</h2>
+            <p id="welcome-msg"></p>
+            
+            <label>Meat Type</label>
+            <select id="meat-type">
+                <option value="GOAT">Goat</option>
+                <option value="BADEL">Badel (Wild Boar)</option>
+                <option value="CHICKEN">Local Chicken / Rooster</option>
+                <option value="KALIZ">Kaliz (Pheasant)</option>
+                <option value="BUFF_BONE">Buff (Buffalo) with Bone</option>
+                <option value="BUFF_BONELESS">Buff Boneless</option>
+            </select>
+
+            <label>Quantity</label>
+            <input type="number" id="quantity" step="0.5" placeholder="e.g., 0.5 for half goat" required>
+
+            <label>Comments / Split details</label>
+            <textarea id="comments" placeholder="e.g., We will distribute 1 goat among 5 of us..."></textarea>
+
+            <button id="submit-btn" class="primary-btn">Submit Order</button>
+            <p id="success-msg" class="success hidden">✅ Order has been received!</p>
+        </div>
+
+        <!-- Section 4: Summary Table -->
+        <div id="summary-section" class="section hidden">
+            <h2>Everybody's Orders</h2>
+            <button id="back-to-order-btn" class="secondary-btn">Back to My Order</button>
+            <div class="table-container">
+                <table id="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Meat Type</th>
+                            <th>Qty</th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
